@@ -1,0 +1,113 @@
+digraph Test {
+subgraph Virtual {
+node [shape=none;]
+bb_virt_regs0[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs0</b></td></tr>
+<tr><td colspan="1" align="left">0</td><td colspan="1" align="left">s_mov_b32 =%s0, 0x00000002</td></tr>
+<tr><td colspan="1" align="left">1</td><td colspan="1" align="left">s_mov_b32 =%s1, 0x00000000</td></tr>
+<tr><td colspan="1" align="left">2</td><td colspan="1" align="left">s_mov_b32 =%s2, 0x00000000</td></tr>
+</table>>];
+bb_virt_regs0 -> bb_virt_regs1
+bb_virt_regs1[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs1</b></td></tr>
+<tr><td colspan="1" align="left">3</td><td colspan="1" align="left">v_cmp_lt_u32 vcc, %v0, %s0</td></tr>
+<tr><td colspan="1" align="left">4</td><td colspan="1" align="left">s_cbranch_vccz bb5</td></tr>
+</table>>];
+bb_virt_regs1 -> bb_virt_regs2
+bb_virt_regs1 -> bb_virt_regs5
+bb_virt_regs2[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs2</b></td></tr>
+<tr><td colspan="1" align="left">5</td><td colspan="1" align="left">v_add_nc_u32 =%v0, %v0, 0x00000004</td></tr>
+<tr><td colspan="1" align="left">6</td><td colspan="1" align="left">v_add_nc_u32 =%v1, %v1, 0x00000004</td></tr>
+<tr><td colspan="1" align="left">7</td><td colspan="1" align="left">v_cmp_lt_u32 vcc, %v1, %s3</td></tr>
+<tr><td colspan="1" align="left">8</td><td colspan="1" align="left">s_cbranch_vccz bb4</td></tr>
+</table>>];
+bb_virt_regs2 -> bb_virt_regs3
+bb_virt_regs2 -> bb_virt_regs4
+bb_virt_regs3[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs3</b></td></tr>
+<tr><td colspan="1" align="left">9</td><td colspan="1" align="left">s_mov_b64 =%s[3:4], %s[0:1]</td></tr>
+<tr><td colspan="1" align="left">10</td><td colspan="1" align="left">v_mov_b32 =%v2, %s3</td></tr>
+</table>>];
+bb_virt_regs3 -> bb_virt_regs4
+bb_virt_regs4[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs4</b></td></tr>
+<tr><td colspan="1" align="left">11</td><td colspan="1" align="left">s_branch bb1</td></tr>
+</table>>];
+bb_virt_regs4 -> bb_virt_regs1
+bb_virt_regs5[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs5</b></td></tr>
+<tr><td colspan="1" align="left">12</td><td colspan="1" align="left">s_mov_b32 =%s5, %s3</td></tr>
+<tr><td colspan="1" align="left">13</td><td colspan="1" align="left">s_endpgm</td></tr>
+</table>>];
+bb_virt_regs5 -> bb_virt_regs6
+bb_virt_regs6[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_virt_regs6</b></td></tr>
+</table>>];
+}
+subgraph Renamed {
+node [shape=none;]
+bb_phys_regs0[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs0</b></td></tr>
+<tr><td colspan="1" align="left">0</td><td colspan="1" align="left">s_mov_b32 =s4, 0x00000002</td></tr>
+<tr><td colspan="1" align="left">1</td><td colspan="1" align="left">s_mov_b32 =s5, 0x00000000</td></tr>
+<tr><td colspan="1" align="left">2</td><td colspan="1" align="left">s_mov_b32 =s6, 0x00000000</td></tr>
+</table>>];
+bb_phys_regs0 -> bb_phys_regs1
+bb_phys_regs1[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs1</b></td></tr>
+<tr><td colspan="1" align="left">3</td><td colspan="1" align="left">v_cmp_lt_u32 vcc, v4, s4</td></tr>
+<tr><td colspan="1" align="left">4</td><td colspan="1" align="left">s_cbranch_vccz bb5</td></tr>
+</table>>];
+bb_phys_regs1 -> bb_phys_regs2
+bb_phys_regs1 -> bb_phys_regs5
+bb_phys_regs2[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs2</b></td></tr>
+<tr><td colspan="1" align="left">5</td><td colspan="1" align="left">v_add_nc_u32 =v4, v4, 0x00000004</td></tr>
+<tr><td colspan="1" align="left">6</td><td colspan="1" align="left">v_add_nc_u32 =v5, v5, 0x00000004</td></tr>
+<tr><td colspan="1" align="left">7</td><td colspan="1" align="left">v_cmp_lt_u32 vcc, v5, s8</td></tr>
+<tr><td colspan="1" align="left">8</td><td colspan="1" align="left">s_cbranch_vccz bb4</td></tr>
+</table>>];
+bb_phys_regs2 -> bb_phys_regs3
+bb_phys_regs2 -> bb_phys_regs4
+bb_phys_regs3[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs3</b></td></tr>
+<tr><td colspan="1" align="left">9</td><td colspan="1" align="left">s_mov_b64 =s[8:9], s[4:5]</td></tr>
+<tr><td colspan="1" align="left">10</td><td colspan="1" align="left">v_mov_b32 =v0, s8</td></tr>
+</table>>];
+bb_phys_regs3 -> bb_phys_regs4
+bb_phys_regs4[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs4</b></td></tr>
+<tr><td colspan="1" align="left">11</td><td colspan="1" align="left">s_branch bb1</td></tr>
+</table>>];
+bb_phys_regs4 -> bb_phys_regs1
+bb_phys_regs5[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs5</b></td></tr>
+<tr><td colspan="1" align="left">12</td><td colspan="1" align="left">s_mov_b32 =s3, s8</td></tr>
+<tr><td colspan="1" align="left">13</td><td colspan="1" align="left">s_endpgm</td></tr>
+</table>>];
+bb_phys_regs5 -> bb_phys_regs6
+bb_phys_regs6[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="2" align="left"><b>bb_phys_regs6</b></td></tr>
+</table>>];
+}
+subgraph RegAlloc {
+node [shape=none;]
+stats[label=<<table border="1" cellborder="0" cellspacing="1">
+<tr><td colspan="3" align="left"><b>Virtual SGPR liveness intervals:</b></td></tr>
+<tr><td colspan="1" align="left">%s[0:2]</td><td colspan="2" align="left">(0,9)</td></tr>
+<tr><td colspan="1" align="left">%s[3:4]</td><td colspan="2" align="left">(7,12)</td></tr>
+<tr><td colspan="1" align="left">%s[5:5]</td><td colspan="2" align="left">(12,12)</td></tr>
+<tr><td colspan="3" align="left"><b>Virtual SGPR mapping:</b></td></tr>
+<tr><td colspan="1" align="left">%s[0:2]</td><td colspan="1" align="left">alignment 2</td><td colspan="1" align="left">s[4:6]</td></tr>
+<tr><td colspan="1" align="left">%s[3:4]</td><td colspan="1" align="left">alignment 2</td><td colspan="1" align="left">s[8:9]</td></tr>
+<tr><td colspan="1" align="left">%s[5:5]</td><td colspan="1" align="left">alignment 1</td><td colspan="1" align="left">s[3:3]</td></tr>
+<tr><td colspan="3" align="left"><b>Virtual VGPR liveness intervals:</b></td></tr>
+<tr><td colspan="1" align="left">%v[0:1]</td><td colspan="2" align="left">(3,7)</td></tr>
+<tr><td colspan="1" align="left">%v[2:2]</td><td colspan="2" align="left">(10,10)</td></tr>
+<tr><td colspan="3" align="left"><b>Virtual VGPR mapping:</b></td></tr>
+<tr><td colspan="1" align="left">%v[0:1]</td><td colspan="1" align="left">alignment 1</td><td colspan="1" align="left">v[4:5]</td></tr>
+<tr><td colspan="1" align="left">%v[2:2]</td><td colspan="1" align="left">alignment 1</td><td colspan="1" align="left">v[0:0]</td></tr>
+</table>>];
+}
+}

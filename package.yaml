@@ -1,0 +1,42 @@
+name:                svvm
+version:             0.1.0.0
+github:              "gfxpg/svvm"
+
+extra-source-files:
+- README.md
+
+description:         Please see the README on GitHub at <https://github.com/gfxpg/svvm#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- mtl
+- transformers
+- containers
+
+library:
+  source-dirs: src
+
+executables:
+  svvm-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - svvm
+
+tests:
+  svvm-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - svvm
+    - hspec
+    - HUnit
+    - process
